@@ -1,25 +1,34 @@
 import { useRef, useContext } from 'react'
 import { omit } from 'lodash/fp'
-import uuid from 'uuid'
-import BenchmarkContext from './BenchmarkContext'
+import { uniqueId } from 'lodash'
+import BenchmarkContext, { BenchmarkRecord, BenchmarkContextType } from './BenchmarkContext'
 
-const createTimestamps = () => ({
-    request: 0,
-    parse: 0,
-    transform: 0,
-    render: 0,
+type BenchmarkTimestamps = {
+  request: number,
+  parse: number,
+  transform: number,
+  render: number,
+  end: number
+}
+
+const createBenchmarkTimestamps = (): BenchmarkTimestamps => ({
+  request: 0,
+  parse: 0,
+  transform: 0,
+  render: 0,
+  end: 0
 })
 
 const useBenchmarks = () => {
-  const { benchmarks, setBenchmarks, rerenderTimestamp, setRerenderTimestamp} = useContext(BenchmarkContext)
+  const { benchmarks, setBenchmarks, rerenderTimestamp, setRerenderTimestamp} = useContext<BenchmarkContextType>(BenchmarkContext)
 
-  const ref = useRef(createTimestamps());
-  const setTimestamp = (key) => {
+  const ref = useRef<BenchmarkTimestamps>(createBenchmarkTimestamps());
+  const setTimestamp = (key: keyof BenchmarkTimestamps) => {
     ref.current[key] = Date.now();
   }
   
-  const createBenchmark = (timestamps) => {
-    const id = uuid()
+  const createBenchmark = (timestamps: BenchmarkTimestamps) => {
+    const id = uniqueId('record')
     const benchmark = {
       id,
       title: "Test " + id.substr(0, 7),
@@ -34,7 +43,7 @@ const useBenchmarks = () => {
     return benchmarks
   }
 
-  const updateBenchmarkById = (id, updates) => {
+  const updateBenchmarkById = (id: string, updates: Partial<Omit<BenchmarkRecord, 'id'>>) => {
     const benchmark = benchmarks[id]
     if (!benchmark) return
     setBenchmarks({
@@ -43,7 +52,7 @@ const useBenchmarks = () => {
     })
   }
 
-  const clearBenchmarkById = (id) => {
+  const clearBenchmarkById = (id: string) => {
     const benchmarksWithRemovedBenchmark = omit(id, benchmarks)
     localStorage.setItem("benchmarks", JSON.stringify(benchmarksWithRemovedBenchmark))
     setBenchmarks(benchmarksWithRemovedBenchmark);
@@ -66,7 +75,7 @@ const useBenchmarks = () => {
     benchmarkRender: () => setTimestamp('render'),
     benchmarkEnd: () => {
       createBenchmark({ ...ref.current, end: Date.now() })
-      ref.current = createTimestamps()
+      ref.current = createBenchmarkTimestamps()
     },
     
     // helper functions

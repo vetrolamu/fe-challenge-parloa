@@ -31,34 +31,36 @@ input {
 
 .header {
   margin-bottom: 20px;
+}
 
-  .toggle {
-    position: relative;
-    margin-left: 20px;
-    float: right;
-  }
+.header .toggle {
+  position: relative;
+  margin-left: 20px;
+  float: right;
+}
 
-  .toggle:before {
-    position: absolute;
-    display: block;
-    left: -20px;
-    top: 2px;
-    content: " ";
-    border-radius: 10px;
-    height: 1em;
-    width: 1em;
-    background-color: grey;
-  }
+.header .toggle:before {
+  position: absolute;
+  display: block;
+  left: -20px;
+  top: 2px;
+  content: " ";
+  border-radius: 10px;
+  height: 1em;
+  width: 1em;
+  background-color: grey;
+}
 
-  .toggle.request.active:before {
-    background-color: green;
-  }
-  .toggle.parse.active:before {
-    background-color: purple;
-  }
-  .toggle.transform.active:before {
-    background-color: blue;
-  }
+.header .toggle.request.active:before {
+  background-color: green;
+}
+
+.header .toggle.parse.active:before {
+  background-color: purple;
+}
+
+.header .toggle.transform.active:before {
+  background-color: blue;
 }
 
 button {
@@ -83,12 +85,11 @@ aside {
   border-right: 1px solid #999;
   box-shadow: 5px 0px 5px rgba(200, 200, 200, 0.5);
   transition: left 0.5s ease-in-out;
-
   z-index: 1;
+}
 
-  &.hidden {
-    left: -100%;
-  }
+aside.hidden {
+  left: -100%;
 }
 
 h1 {
@@ -117,28 +118,25 @@ article header {
   align-items: center;
   margin-left: -10px;
   margin-bottom: 0px;
+}
 
-  input,
-  button,
-  label {
-    flex: 3 1 20%;
-    padding: 5px 10px;
-    margin-right: 0px;
+article header input,
+article header button,
+article header label {
+  flex: 3 1 20%;
+  padding: 5px 10px;
+  margin-right: 0px;
+}
 
-    &:first-child {
-      flex: 1 1 40%;
-    }
+article header input:first-child,
+article header button:last-child {
+  flex: 1 1 40%;
+}
 
-    &:last-child {
-      flex: 1 1 40%;
-    }
-  }
-
-  button {
-    text-align: right;
-    text-decoration: underline;
-    margin-right: -20px;
-  }
+article header button {
+  text-align: right;
+  text-decoration: underline;
+  margin-right: -20px;
 }
 
 .benchmark__runner {
@@ -177,6 +175,10 @@ th {
   vertical-align: center;
 }
 
+.number {
+  text-align: right;
+}
+
 img {
   height: 40px;
   width: 40px;
@@ -205,40 +207,21 @@ img {
   width: 200px;
   margin: 80px auto;
   padding-bottom: 100vh;
-
-  img {
-    flex: 0 0 40px;
-    opacity: 1;
-    animation: flickerAnimation 2s infinite;
-    margin: 10px;
-  }
-
-  img:nth-child(2) {
-    opacity: 1;
-    animation: flickerAnimation 0.75s infinite;
-  }
-
-  img:nth-child(3) {
-    opacity: 1;
-    animation: flickerAnimation 0.5s infinite;
-  }
 }
 
-.virtualized {
-  font-size: 16px;
-  padding-left: 10px;
+.loading img {
+  flex: 0 0 40px;
+  opacity: 1;
+  animation: flickerAnimation 2s infinite;
+  margin: 10px;
+}
 
-  .row {
-    display: flex;
-    height: 50px;
-  }
+.loading img:nth-child(2) {
+  opacity: 1;
+  animation: flickerAnimation 0.75s infinite;
+}
 
-  .header {
-    font-weight: bold;
-  }
-
-  .row > div {
-    display: flex;
-    align-items: center;
-  }
+.loading img:nth-child(3) {
+  opacity: 1;
+  animation: flickerAnimation 0.5s infinite;
 }

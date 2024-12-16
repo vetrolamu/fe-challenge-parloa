@@ -1,8 +1,7 @@
-import React from "react"
-import '@testing-library/jest-dom'
-import { render, screen, getByText, cleanup, getByLabelText } from '@testing-library/react';
-import fetchMock from 'jest-fetch-mock'
-import CandidatesView from './CandidatesView';
+import 'vitest-fetch-mock';
+import { describe, beforeEach, afterEach, it, expect } from 'vitest'
+import { screen, render, cleanup } from '@testing-library/react'
+import CandidatesView from './App'
 
 const data = [{
     id: 'PPAF8OJP',
@@ -13,20 +12,14 @@ const data = [{
     classname: 'Rogue',
     race: 'Dwarf',
     level: 7,
-    height: "4'3",
+    height: 142, // cm
     image: 'http://localhost:3003/images/Dwarf.png',
     dob: '1904-12-11',
-    strength: 14,
-    dexterity: 14,
-    constitution: 15,
-    intelligence: 8,
-    wisdom: 14,
-    charisma: 11
 }]
 
 describe('candidates table', () => {
     beforeEach(() => {
-        fetchMock.resetMocks();
+        fetchMock.doMock();
         fetchMock.mockResponseOnce(JSON.stringify(data));
     })
 

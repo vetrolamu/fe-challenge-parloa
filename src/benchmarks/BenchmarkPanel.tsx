@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { reduce } from "lodash/fp"
 import Benchmark from "./Benchmark"
 import useBenchmarks from './useBenchmarks'
+import { BenchmarkRecord } from "./BenchmarkContext"
 
 const BenchmarkPanel = () => {
   const {benchmarks, updateBenchmarkById, clearAll, clearBenchmarkById, forceRerender} = useBenchmarks();
@@ -10,7 +11,7 @@ const BenchmarkPanel = () => {
   const [showParse, setShowParse] = useState(true)
   const [showTransform, setShowTransform] = useState(true)
   
-  const onKeyPress = event => {
+  const onKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Tab") {
       toggleShowBenchmarks()
     }
@@ -28,17 +29,17 @@ const BenchmarkPanel = () => {
       localStorage.removeItem('showBenchmarks')
       setShowBenchmarks(false)
     } else {
-      localStorage.setItem('showBenchmarks', true)
+      localStorage.setItem('showBenchmarks', 'true')
       setShowBenchmarks(true)
     }
   }
 
-  const calculateTotal = b =>
-    showRequest * b.request +
-    showParse * b.parse +
-    showTransform * b.transform
+  const calculateTotal = (b: BenchmarkRecord) =>
+    (showRequest ? b.request : 0) +
+    (showParse ? b.parse: 0) +
+    (showTransform ? b.transform: 0);
 
-  const max = reduce((max, ex) => {
+  const max = reduce((max: number, ex: BenchmarkRecord) => {
     if (!ex) return max
     const total = calculateTotal(ex)
     return total > max ? total : max

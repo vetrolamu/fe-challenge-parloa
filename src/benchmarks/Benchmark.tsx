@@ -1,6 +1,26 @@
-import React from "react"
+type BenchmarkProps = {
+  // metadata
+  id: string,
+  title: string,
 
-export default ({
+  // rendering helpers
+  showRequest?: boolean,
+  showTransform?: boolean,
+  showParse?: boolean,
+
+  // data
+  parse: number,
+  request: number,
+  transform: number,
+  total: number,
+  max?: number
+
+  // hooks
+  onClear: (idToClear: string) => void,
+  onUpdateTitle: (newTitle: string) => void
+}
+
+const Benchmark = ({
   id,
   title,
   showRequest = true,
@@ -13,7 +33,7 @@ export default ({
   onClear,
   onUpdateTitle,
   max = 10000
-}) => {
+}: BenchmarkProps) => {
   return (
     <article className="benchmark">
       <header>
@@ -21,7 +41,7 @@ export default ({
           value={title}
           name={`experiment-${id}-title`}
           onChange={e => onUpdateTitle(e.target.value)}
-          onClick={e => e.target.select()}
+          // onClick={e => e.target.select()}
         />
         {showRequest && (
           <label className={"label label--request"}>
@@ -66,3 +86,5 @@ export default ({
     </article>
   )
 }
+
+export default Benchmark

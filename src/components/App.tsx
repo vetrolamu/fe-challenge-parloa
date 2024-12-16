@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from "react"
+import {useState, useEffect} from "react"
 import { tap } from 'lodash/fp';
 
-import CandidatesTable from "./CandidatesTable"
 import Loading from "./Loading"
 import transform from './transform'
 import useBenchmarks from "../benchmarks/useBenchmarks"
-import ClassTable from "./ClassTable";
+import CandidatesList from "./CandidatesList"
+import  ClassInfoTable from "./ClassInfoTable";
+import { Candidate } from "../types";
 
 const CandidatesView = () => {
-  const [data, setData] = useState(null);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
 
   const {
     benchmarkRequest, 
@@ -32,21 +33,21 @@ const CandidatesView = () => {
       .then(tap(benchmarkTransform)) // benchmarking - ignore
       .then(json => json.map(transform))
       .then(tap(benchmarkRender)) // benchmarking - ignore
-      .then(data => setData(data.filter((d,i) => i < 1000)))
+      .then((data) => setCandidates(data.filter((d: Candidate, i: number) => i < 1000)))
       .then(tap(benchmarkEnd)) // benchmarking - ignore
       .catch(e => console.error(e)); 
   }, [rerenderTimestamp])
 
-  if (!data) return <Loading />
+  if (!candidates) return <Loading />
 
   return (
     <main>
       <h1>DnD Candidates</h1>
-      <ClassTable classStats={[
-        { name: 'Fighter', count: 10, strength: 16, dexterity: 10, constitution: 14, wisdom: 10, intelligence: 10, charisma: 12 },
-        { name: 'Barbarian', count: 5, strength: 16, dexterity: 14, constitution: 16, wisdom: 8, intelligence: 8, charisma: 12 },
-      ]}/>
-      <CandidatesTable candidates={data.filter((d,i) => i < 1000) || []} />
+      <ClassInfoTable classInfo={[
+        { classname: 'Fighter', count: 1, age: 1, height: 1, level: 1},
+        { classname: 'Wizard', count: 1, age: 1, height: 1, level: 1}
+      ]} />
+      <CandidatesList candidates={candidates.filter((d,i) => i < 1000) || []} />
     </main>
   )
 }

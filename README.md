@@ -16,7 +16,7 @@ We have a really basic app and we would like you to:
 
 ## Running
 
-- install dependencies `yarn install`
-- start the server: `yarn server`, server available at http://localhost:3003
-- start the client: `yarn client`, client available at http://localhost:1234
+- install dependencies `yarn`
+- start the server: `node ./server/index.cjs`, server available at http://localhost:3003
+- start the client: `yarn client`, client available at http://localhost:5173
 - start tests: `yarn test`, can see test output in the terminal
