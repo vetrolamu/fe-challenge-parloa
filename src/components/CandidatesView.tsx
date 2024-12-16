@@ -7,6 +7,7 @@ import useBenchmarks from "../benchmarks/useBenchmarks"
 import CandidatesList from "./CandidatesList"
 import  ClassInfoTable from "./ClassInfoTable";
 import { Candidate } from "../types";
+import RenderReporter from "benchmarks/RenderReporter";
 
 const CandidatesView = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -34,7 +35,6 @@ const CandidatesView = () => {
       .then(json => json.map(transform))
       .then(tap(benchmarkRender)) // benchmarking - ignore
       .then((data) => setCandidates(data.filter((d: Candidate, i: number) => i < 1000)))
-      .then(tap(benchmarkEnd)) // benchmarking - ignore
       .catch(e => console.error(e)); 
   }, [rerenderTimestamp])
 
@@ -47,7 +47,8 @@ const CandidatesView = () => {
         { classname: 'Fighter', count: 1, age: 1, height: 1, level: 1},
         { classname: 'Wizard', count: 1, age: 1, height: 1, level: 1}
       ]} />
-      <CandidatesList candidates={candidates.filter((d,i) => i < 1000) || []} />
+      <CandidatesList candidates={candidates.filter((d,i)=>i<100) || []} />
+      <RenderReporter data={candidates} onRender={benchmarkEnd} />
     </main>
   )
 }

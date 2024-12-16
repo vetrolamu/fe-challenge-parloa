@@ -1,7 +1,7 @@
 import 'vitest-fetch-mock';
 import { describe, beforeEach, afterEach, it, expect } from 'vitest'
 import { screen, render, cleanup } from '@testing-library/react'
-import CandidatesView from './App'
+import CandidatesView from './CandidatesView'
 
 const data = [{
     id: 'PPAF8OJP',

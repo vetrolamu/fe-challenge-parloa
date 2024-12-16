@@ -68,18 +68,20 @@ button {
   text-decoration: underline;
 }
 
+#root {
+  display: flex;
+  flex-direction: row;
+}
+
 main {
-  width: 900px;
   margin: auto;
+  width: 800px;
   padding: 20px 50px;
   background-color: rgba(255, 255, 255, 0.95);
 }
 
 aside {
-  position: fixed;
-  height: 100%;
-  width: 800px;
-  left: 0;
+  width: 600px;
   padding: 20px;
   background-color: #f0f0f0;
   border-right: 1px solid #999;
@@ -89,7 +91,7 @@ aside {
 }
 
 aside.hidden {
-  left: -100%;
+  display: none;
 }
 
 h1 {
@@ -108,6 +110,14 @@ h1 {
   margin-bottom: 5px;
   border-bottom: 1px solid #889;
 }
+
+.benchmark__runner {
+  width: 100%;
+  z-index: 0;
+  display: flex;
+  height: 20px;
+}
+
 
 article header {
   font-size: 12px;
@@ -138,14 +148,6 @@ article header button {
   text-decoration: underline;
   margin-right: -20px;
 }
-
-.benchmark__runner {
-  width: 100%;
-  z-index: 0;
-  display: flex;
-  height: 20px;
-}
-
 .benchmark__progress {
   height: 20px;
 }
@@ -160,6 +162,10 @@ article header button {
 
 .benchmark__progress--transform {
   background-color: blue;
+}
+
+.benchmark__progress--render {
+  background-color: orange;
 }
 
 table {

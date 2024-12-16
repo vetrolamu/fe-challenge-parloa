@@ -5,7 +5,7 @@ const compression = require('compression');
 const generateCandidates = require('./generateCandidates.cjs');
 
 const app = express()
-const data = generateCandidates(100)
+const data = generateCandidates(50000)
 
 app.use(cors())
 

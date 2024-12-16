@@ -7,11 +7,13 @@ type BenchmarkProps = {
   showRequest?: boolean,
   showTransform?: boolean,
   showParse?: boolean,
+  showRender?: boolean,
 
   // data
   parse: number,
   request: number,
   transform: number,
+  render: number,
   total: number,
   max?: number
 
@@ -26,9 +28,11 @@ const Benchmark = ({
   showRequest = true,
   showParse = true,
   showTransform = true,
+  showRender = true,
   parse = 0,
   request = 0,
   transform = 0,
+  render = 0,
   total = 0,
   onClear,
   onUpdateTitle,
@@ -41,7 +45,6 @@ const Benchmark = ({
           value={title}
           name={`experiment-${id}-title`}
           onChange={e => onUpdateTitle(e.target.value)}
-          // onClick={e => e.target.select()}
         />
         {showRequest && (
           <label className={"label label--request"}>
@@ -56,6 +59,11 @@ const Benchmark = ({
         {showTransform && (
           <label className={"label label--transform"}>
             <i /> {transform}ms
+          </label>
+        )}
+        {showRender && (
+          <label className={"label label--render"}>
+            <i /> {render}ms
           </label>
         )}
         <label className={"label label--total"}>
@@ -80,6 +88,12 @@ const Benchmark = ({
           <div
             className="benchmark__progress benchmark__progress--transform"
             style={{ width: (transform / max) * 100 + "%" }}
+          />
+        )}
+        {showRender && (
+          <div
+            className="benchmark__progress benchmark__progress--render"
+            style={{ width: (render / max) * 100 + "%" }}
           />
         )}
       </div>

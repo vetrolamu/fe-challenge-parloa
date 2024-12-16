@@ -10,6 +10,7 @@ const BenchmarkPanel = () => {
   const [showRequest, setShowRequest] = useState(true)
   const [showParse, setShowParse] = useState(true)
   const [showTransform, setShowTransform] = useState(true)
+  const [showRender, setShowRender] = useState(true)
   
   const onKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Tab") {
@@ -35,15 +36,18 @@ const BenchmarkPanel = () => {
   }
 
   const calculateTotal = (b: BenchmarkRecord) =>
-    (showRequest ? b.request : 0) +
-    (showParse ? b.parse: 0) +
-    (showTransform ? b.transform: 0);
+    (showRequest ? b.request : 0)
+    + (showParse ? b.parse: 0)
+    + (showTransform ? b.transform: 0)
+    + (showRender ? b.render: 0);
 
   const max = reduce((max: number, ex: BenchmarkRecord) => {
     if (!ex) return max
     const total = calculateTotal(ex)
     return total > max ? total : max
   }, 0)(Object.values(benchmarks))
+
+  console.log('benchmarks', benchmarks)
 
   return (
     <React.Fragment>
@@ -63,12 +67,17 @@ const BenchmarkPanel = () => {
           >
             Parse
           </button>
-
           <button
             className={`toggle transform ${showTransform && "active"}`}
             onClick={() => setShowTransform(!showTransform)}
           >
             Transform
+          </button>
+          <button
+            className={`toggle render ${showRender && "active"}`}
+            onClick={() => setShowRender(!showRender)}
+          >
+            Render
           </button>
         </header>
         <article className="benchmark benchmark--header">
@@ -77,6 +86,7 @@ const BenchmarkPanel = () => {
             {showRequest && <label>Fetch</label>}
             {showParse && <label>Parse</label>}
             {showTransform && <label>Transform</label>}
+            {/* {showRender && <label>Render</label>} */}
             <label>Total</label>
             <label />
           </header>
@@ -97,6 +107,7 @@ const BenchmarkPanel = () => {
                   showRequest={showRequest}
                   showTransform={showTransform}
                   showParse={showParse}
+                  showRender={showRender}
                 />
               )
             })}

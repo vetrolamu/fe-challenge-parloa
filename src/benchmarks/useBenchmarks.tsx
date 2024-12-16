@@ -1,6 +1,6 @@
 import { useRef, useContext } from 'react'
 import { omit } from 'lodash/fp'
-import { uniqueId } from 'lodash'
+import { v4 as uuid } from 'uuid';
 import BenchmarkContext, { BenchmarkRecord, BenchmarkContextType } from './BenchmarkContext'
 
 type BenchmarkTimestamps = {
@@ -28,10 +28,10 @@ const useBenchmarks = () => {
   }
   
   const createBenchmark = (timestamps: BenchmarkTimestamps) => {
-    const id = uniqueId('record')
+    const id = uuid().substring(0, 8);
     const benchmark = {
       id,
-      title: "Test " + id.substr(0, 7),
+      title: "Test " + id,
       request: timestamps.parse - timestamps.request,
       parse: timestamps.transform - timestamps.parse,
       transform: timestamps.render - timestamps.transform,
@@ -40,7 +40,7 @@ const useBenchmarks = () => {
     const benchmarksWithNewBenchmark = { ...benchmarks, [id]: benchmark }
     localStorage.setItem("benchmarks", JSON.stringify(benchmarksWithNewBenchmark))
     setBenchmarks(benchmarksWithNewBenchmark)
-    return benchmarks
+    return benchmarksWithNewBenchmark
   }
 
   const updateBenchmarkById = (id: string, updates: Partial<Omit<BenchmarkRecord, 'id'>>) => {
