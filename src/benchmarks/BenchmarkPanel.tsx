@@ -6,34 +6,17 @@ import { BenchmarkRecord } from "./BenchmarkContext"
 
 const BenchmarkPanel = () => {
   const {benchmarks, updateBenchmarkById, clearAll, clearBenchmarkById, forceRerender} = useBenchmarks();
-  const [showBenchmarks, setShowBenchmarks] = useState(localStorage.getItem('showBenchmarks') || false)
+  const [showBenchmarks, setShowBenchmarks] = useState<boolean>(false)
   const [showRequest, setShowRequest] = useState(true)
   const [showParse, setShowParse] = useState(true)
   const [showTransform, setShowTransform] = useState(true)
   const [showRender, setShowRender] = useState(true)
-  
-  const onKeyPress = (event: KeyboardEvent) => {
-    if (event.key === "Tab") {
-      toggleShowBenchmarks()
-    }
-  }
 
   useEffect(() => {
-    document.addEventListener("keydown", onKeyPress)
-    return () => {
-      document.removeEventListener("keydown", onKeyPress)
-    }
-  }, [])
-
-  const toggleShowBenchmarks = () => {
-    if (showBenchmarks) {
-      localStorage.removeItem('showBenchmarks')
-      setShowBenchmarks(false)
-    } else {
-      localStorage.setItem('showBenchmarks', 'true')
+    if (window.location.href.includes('#benchmarks')) {
       setShowBenchmarks(true)
     }
-  }
+  }, [])
 
   const calculateTotal = (b: BenchmarkRecord) =>
     (showRequest ? b.request : 0)
@@ -47,25 +30,18 @@ const BenchmarkPanel = () => {
     return total > max ? total : max
   }, 0)(Object.values(benchmarks))
 
-  console.log('benchmarks', benchmarks)
-
   return (
     <React.Fragment>
       <aside className={showBenchmarks ? "" : "hidden"}>
         <header className={"header"}>
           <button onClick={forceRerender}>Run</button>
           <button onClick={clearAll}>Clear</button>
+
           <button
-            className={`toggle request ${showRequest && "active"}`}
-            onClick={() => setShowRequest(!showRequest)}
+            className={`toggle render ${showRender && "active"}`}
+            onClick={() => setShowRender(!showRender)}
           >
-            Request
-          </button>
-          <button
-            className={`toggle parse ${showParse && "active"}`}
-            onClick={() => setShowParse(!showParse)}
-          >
-            Parse
+            Render
           </button>
           <button
             className={`toggle transform ${showTransform && "active"}`}
@@ -74,10 +50,16 @@ const BenchmarkPanel = () => {
             Transform
           </button>
           <button
-            className={`toggle render ${showRender && "active"}`}
-            onClick={() => setShowRender(!showRender)}
+            className={`toggle parse ${showParse && "active"}`}
+            onClick={() => setShowParse(!showParse)}
           >
-            Render
+            Parse
+          </button>
+          <button
+            className={`toggle request ${showRequest && "active"}`}
+            onClick={() => setShowRequest(!showRequest)}
+          >
+            Request
           </button>
         </header>
         <article className="benchmark benchmark--header">
@@ -86,7 +68,7 @@ const BenchmarkPanel = () => {
             {showRequest && <label>Fetch</label>}
             {showParse && <label>Parse</label>}
             {showTransform && <label>Transform</label>}
-            {/* {showRender && <label>Render</label>} */}
+            {showRender && <label>Render</label>}
             <label>Total</label>
             <label />
           </header>
@@ -112,9 +94,6 @@ const BenchmarkPanel = () => {
               )
             })}
       </aside>
-      <a className="showExperiments" href="#" onClick={toggleShowBenchmarks}>
-        {showBenchmarks ? "Hide" : "Benchmarks"}
-      </a>
     </React.Fragment>
   )
 }

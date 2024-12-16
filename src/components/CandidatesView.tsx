@@ -47,7 +47,7 @@ const CandidatesView = () => {
         { classname: 'Fighter', count: 1, age: 1, height: 1, level: 1},
         { classname: 'Wizard', count: 1, age: 1, height: 1, level: 1}
       ]} />
-      <CandidatesList candidates={candidates.filter((d,i)=>i<100) || []} />
+      <CandidatesList candidates={candidates || []} />
       <RenderReporter data={candidates} onRender={benchmarkEnd} />
     </main>
   )

@@ -4,12 +4,13 @@ const cors = require('cors');
 const compression = require('compression');
 const generateCandidates = require('./generateCandidates.cjs');
 
+const CANDIDATE_COUNT = 50000
 const app = express()
-const data = generateCandidates(50000)
+const data = generateCandidates()
 
 app.use(cors())
 
-app.get("/data", compression(), (req, res) => {
+app.get("/data", (req, res) => {
   res.json(data);
 })
 

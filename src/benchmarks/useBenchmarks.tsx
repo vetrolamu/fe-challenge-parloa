@@ -74,6 +74,7 @@ const useBenchmarks = () => {
     benchmarkTransform: () => setTimestamp('transform'),
     benchmarkRender: () => setTimestamp('render'),
     benchmarkEnd: () => {
+      if (ref.current.request === 0) return;
       createBenchmark({ ...ref.current, end: Date.now() })
       ref.current = createBenchmarkTimestamps()
     },
