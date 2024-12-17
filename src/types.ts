@@ -1,25 +1,18 @@
-export type CandidateStats = {
-    str: number,
-    dex: number,
-    con: number,
-    int: number,
-    wis: number,
-    cha: number
+export enum ExperienceLevel {
+    Junior = 'Junior',
+    Mid = 'Mid Level',
+    Senior = 'Senior',
 }
 
 export type CandidateData = {
     id: string,
     name: string,
-    dob: string, // ISO date format
-    lair_address: string,
-    lair_secret_password: string,
-    classname: string,
-    race: string,
-    level: number,
-    height: number, // cm
-    hitpoints: number,
-    image: string,
-    stats: CandidateStats
+    image: string
+    dateOfBirth: string, // yyyy-MM-dd
+    profession: string,
+    address: string,
+    level: ExperienceLevel, 
+    experience: number,
 }
 
 export type Candidate = CandidateData & {

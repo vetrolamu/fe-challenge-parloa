@@ -23,6 +23,6 @@
       "@testing-library/jest-dom/matchers",
     ]
   },
-  "include": ["src"],
+  "include": ["src", "server"],
   "exclude": ["node_modules"]
 }

@@ -3,10 +3,6 @@ body {
   font-size: 14px;
   margin: 0px;
 
-  background: url("http://localhost:3003/images/Town.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-
   height: 100vh;
   width: 100vw;
 }
@@ -16,55 +12,6 @@ body {
   height: 100vh;
   width: 100vw;
   overflow-y: scroll;
-}
-
-button,
-input {
-  font-size: 1em;
-  border: none;
-  border-width: 0;
-  padding: 0px;
-  margin-right: 20px;
-  outline: none;
-  background-color: transparent;
-}
-
-.header {
-  margin-bottom: 20px;
-}
-
-.header .toggle {
-  position: relative;
-  margin-left: 20px;
-  float: right;
-}
-
-.header .toggle:before {
-  position: absolute;
-  display: block;
-  left: -20px;
-  top: 2px;
-  content: " ";
-  border-radius: 10px;
-  height: 1em;
-  width: 1em;
-  background-color: grey;
-}
-
-.header .toggle.request.active:before {
-  background-color: green;
-}
-
-.header .toggle.parse.active:before {
-  background-color: purple;
-}
-
-.header .toggle.transform.active:before {
-  background-color: blue;
-}
-
-.header .toggle.render.active:before {
-  background-color: orange;
 }
 
 button {
@@ -107,74 +54,6 @@ h1 {
   bottom: 20px;
   left: 20px;
   z-index: 10;
-}
-
-.benchmark--header {
-  font-weight: bold;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #889;
-}
-
-.benchmark__runner {
-  width: 100%;
-  z-index: 0;
-  display: flex;
-  height: 20px;
-}
-
-
-article header {
-  font-size: 12px;
-  width: 100%;
-  z-index: 1;
-  display: flex;
-  justify-content: stretch;
-  align-items: center;
-  margin-left: -10px;
-  margin-bottom: 0px;
-}
-
-article header input,
-article header button,
-article header label {
-  width: 14%;
-  padding: 5px 10px;
-  margin-right: 0px;
-  box-sizing: border-box;
-}
-
-article header label:first-child,
-article header label:nth-child(6),
-article header input {
-  width: 18%;
-}
-
-article header label:last-child,
-article header button {
-  flex-grow: 1;
-  text-align: right;
-  text-decoration: underline;
-  margin-right: -20px;
-}
-
-.benchmark__progress {
-  height: 20px;
-}
-
-.benchmark__progress--request {
-  background-color: green;
-}
-
-.benchmark__progress--parse {
-  background-color: purple;
-}
-
-.benchmark__progress--transform {
-  background-color: blue;
-}
-
-.benchmark__progress--render {
-  background-color: orange;
 }
 
 table {
