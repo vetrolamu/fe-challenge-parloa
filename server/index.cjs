@@ -16,7 +16,7 @@ app.get("/data", (req, res) => {
 
 app.use("/images", express.static(path.join(__dirname, "./assets")))
 
-app.use((req, res) => res.status(404).send("404 Not Found"))
+app.use((req, res) => res.send("<html><body><pre>FE Challenge API Running</pre></body></html>"))
 
 app.use((err, req, res) => {
   res.status(500).send({

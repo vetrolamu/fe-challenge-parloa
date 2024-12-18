@@ -10,11 +10,11 @@ export type CandidateData = {
     image: string
     dateOfBirth: string, // yyyy-MM-dd
     profession: string,
-    address: string,
+    address: string, // we dont want to show this to the user
     level: ExperienceLevel, 
     experience: number,
 }
 
 export type Candidate = CandidateData & {
-    age: number,
+    age: number
 }

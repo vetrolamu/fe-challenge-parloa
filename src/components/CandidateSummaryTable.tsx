@@ -16,7 +16,7 @@ type CandidateSummaryTableProps = {
 const CandidateSummaryTable = ({ candidateSummary = [] }: CandidateSummaryTableProps) => {
   const totalCandidates = sumBy("totalCount")(candidateSummary)
   return (
-    <table className="classInfo">
+    <table className="candidateSummary">
       <thead>
         <tr>
           <th>Profession</th>

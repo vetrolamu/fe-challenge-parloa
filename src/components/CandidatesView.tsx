@@ -1,10 +1,10 @@
 import {useState, useEffect} from "react"
+import moment from "moment";
 
 import Loading from "./Loading"
-import transform from './transform'
 import CandidatesList from "./CandidatesList"
 import  CandidateSummaryTable from "./CandidateSummaryTable";
-import { Candidate } from "../types";
+import { Candidate, CandidateData } from "../types";
 
 const CandidatesView = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -17,8 +17,14 @@ const CandidatesView = () => {
       }
     })
       .then(res => res.json())
-      .then(json => json.map(transform))
-      .then((data) => setCandidates(data.filter((d: Candidate, i: number) => i < 1000)))
+      .then((data: CandidateData[]) => {
+        const dataWithAge: Candidate[] = data.map((candidate:CandidateData) => ({
+          ...candidate,
+          age: moment(new Date()).diff(candidate.dateOfBirth, "years")
+        }))
+
+        setCandidates(dataWithAge)
+      })
       .catch(e => console.error(e)); 
   }, [])
 

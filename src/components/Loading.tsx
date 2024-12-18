@@ -8,8 +8,8 @@ const images = [
   "http://localhost:3003/images/Lizardfolk.png",
   "http://localhost:3003/images/Dragonborn.png",
   "http://localhost:3003/images/Gnome.png",
-  "http://localhost:3003/images/Elf.png",
-  "http://localhost:3003/images/Gnome.png",
+  "http://localhost:3003/images/Elf.png#elf",
+  "http://localhost:3003/images/Gnome.png#gnome",
 ]
 
 const Loading = () => {
