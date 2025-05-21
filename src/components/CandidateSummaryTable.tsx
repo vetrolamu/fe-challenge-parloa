@@ -1,20 +1,22 @@
-import { sumBy } from "lodash/fp"
+import { sumBy } from "lodash/fp";
 
 type CandidateSummaryData = {
-  profession: string,
-  experienceAvg: number,
-  juniorCount: number,
-  midCount: number,
-  seniorCount: number,
-  totalCount: number
-}
+  profession: string;
+  experienceAvg: number;
+  juniorCount: number;
+  midCount: number;
+  seniorCount: number;
+  totalCount: number;
+};
 
 type CandidateSummaryTableProps = {
-  candidateSummary: CandidateSummaryData[]
-}
+  candidateSummary: CandidateSummaryData[];
+};
 
-const CandidateSummaryTable = ({ candidateSummary = [] }: CandidateSummaryTableProps) => {
-  const totalCandidates = sumBy("totalCount")(candidateSummary)
+const CandidateSummaryTable = ({
+  candidateSummary = [],
+}: CandidateSummaryTableProps) => {
+  const totalCandidates = sumBy("totalCount")(candidateSummary);
   return (
     <table className="candidateSummary">
       <thead>
@@ -30,27 +32,50 @@ const CandidateSummaryTable = ({ candidateSummary = [] }: CandidateSummaryTableP
       <tbody>
         <tr>
           <td>All</td>
-          <td className="number">{Math.round(sumBy("juniorCount")(candidateSummary) / totalCandidates)}</td>
-          <td className="number">{Math.round(sumBy("midCount")(candidateSummary) / totalCandidates)}</td>
-          <td className="number">{Math.round(sumBy("seniorCount")(candidateSummary) / totalCandidates)}</td>
+          <td className="number">
+            {Math.round(
+              sumBy("juniorCount")(candidateSummary) / totalCandidates,
+            )}
+          </td>
+          <td className="number">
+            {Math.round(sumBy("midCount")(candidateSummary) / totalCandidates)}
+          </td>
+          <td className="number">
+            {Math.round(
+              sumBy("seniorCount")(candidateSummary) / totalCandidates,
+            )}
+          </td>
           <td className="number">{totalCandidates}</td>
-          <td className="number">{Math.round(sumBy("experienceAvg")(candidateSummary) / totalCandidates)}</td>
+          <td className="number">
+            {Math.round(
+              sumBy("experienceAvg")(candidateSummary) / totalCandidates,
+            )}
+          </td>
         </tr>
-        {candidateSummary.map(({ profession, experienceAvg, juniorCount, midCount, seniorCount, totalCount }) => {
-          return (
-            <tr key={profession}>
-              <td>{profession}</td>
-              <td className="number">{juniorCount}</td>
-              <td className="number">{midCount}</td>
-              <td className="number" >{seniorCount}</td>
-              <td className="number">{totalCount}</td>
-              <td className="number">{experienceAvg}</td>
-            </tr>
-          )
-        })}
+        {candidateSummary.map(
+          ({
+            profession,
+            experienceAvg,
+            juniorCount,
+            midCount,
+            seniorCount,
+            totalCount,
+          }) => {
+            return (
+              <tr key={profession}>
+                <td>{profession}</td>
+                <td className="number">{juniorCount}</td>
+                <td className="number">{midCount}</td>
+                <td className="number">{seniorCount}</td>
+                <td className="number">{totalCount}</td>
+                <td className="number">{experienceAvg}</td>
+              </tr>
+            );
+          },
+        )}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
-export default CandidateSummaryTable
+export default CandidateSummaryTable;
