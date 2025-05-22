@@ -1,8 +1,8 @@
-import 'index.css'
-import CandidatesView from 'components/CandidatesView';
+import "index.css";
+import CandidatesView from "components/CandidatesView";
 
 const App = () => {
-    return <CandidatesView />
-}
+  return <CandidatesView />;
+};
 
-export default App
+export default App;

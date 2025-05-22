@@ -20,7 +20,7 @@
       "vitest/globals",
       "vitest-fetch-mock",
       "@testing-library/jest-dom",
-      "@testing-library/jest-dom/matchers",
+      "@testing-library/jest-dom/matchers"
     ]
   },
   "include": ["src", "server"],

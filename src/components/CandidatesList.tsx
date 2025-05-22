@@ -1,4 +1,4 @@
-import { Candidate } from "../types"
+import { Candidate } from "../types";
 
 const CandidatesList = ({ candidates }: { candidates: Candidate[] }) => {
   return (
@@ -24,11 +24,11 @@ const CandidatesList = ({ candidates }: { candidates: Candidate[] }) => {
               <td>{level}</td>
               <td className="number">{age}yrs</td>
             </tr>
-          )
+          );
         })}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
-export default CandidatesList
+export default CandidatesList;
