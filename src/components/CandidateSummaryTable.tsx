@@ -1,6 +1,4 @@
-import { sumBy } from "lodash/fp";
-
-type CandidateSummaryData = {
+export type CandidateSummaryData = {
   profession: string;
   experienceAvg: number;
   juniorCount: number;
@@ -11,12 +9,13 @@ type CandidateSummaryData = {
 
 type CandidateSummaryTableProps = {
   candidateSummary: CandidateSummaryData[];
+  onProfessionClick: (profession: string) => void;
 };
 
 const CandidateSummaryTable = ({
   candidateSummary = [],
+  onProfessionClick,
 }: CandidateSummaryTableProps) => {
-  const totalCandidates = sumBy("totalCount")(candidateSummary);
   return (
     <table className="candidateSummary">
       <thead>
@@ -30,28 +29,6 @@ const CandidateSummaryTable = ({
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>All</td>
-          <td className="number">
-            {Math.round(
-              sumBy("juniorCount")(candidateSummary) / totalCandidates,
-            )}
-          </td>
-          <td className="number">
-            {Math.round(sumBy("midCount")(candidateSummary) / totalCandidates)}
-          </td>
-          <td className="number">
-            {Math.round(
-              sumBy("seniorCount")(candidateSummary) / totalCandidates,
-            )}
-          </td>
-          <td className="number">{totalCandidates}</td>
-          <td className="number">
-            {Math.round(
-              sumBy("experienceAvg")(candidateSummary) / totalCandidates,
-            )}
-          </td>
-        </tr>
         {candidateSummary.map(
           ({
             profession,
@@ -63,7 +40,11 @@ const CandidateSummaryTable = ({
           }) => {
             return (
               <tr key={profession}>
-                <td>{profession}</td>
+                <td>
+                  <button onClick={() => onProfessionClick(profession)}>
+                    {profession}
+                  </button>
+                </td>
                 <td className="number">{juniorCount}</td>
                 <td className="number">{midCount}</td>
                 <td className="number">{seniorCount}</td>
